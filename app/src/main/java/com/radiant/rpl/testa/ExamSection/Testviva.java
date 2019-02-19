@@ -44,6 +44,7 @@ import com.radiant.rpl.testa.MainActivity;
 import com.radiant.rpl.testa.MyNetwork;
 import com.radiant.rpl.testa.SignInAct;
 import com.radiant.rpl.testa.Testinstruction;
+import com.radiant.rpl.testa.Welcome_page;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -239,9 +240,23 @@ public class Testviva extends AppCompatActivity{
         finalSubmitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog alertbox = new AlertDialog.Builder(v.getContext())
-                        .setMessage("Thanks for giving the test")
-                        .show();
+                AlertDialog alertDialog = new AlertDialog.Builder(Testviva.this)
+                        .setMessage("Click Yes to final submit.")
+                        .setPositiveButton("Yes ", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent ii = new Intent(Testviva.this, Welcome_page.class);
+                                startActivity(ii);
+
+                                finish();
+
+                            }
+                        }).create();
+
+
+                alertDialog.show();
+
+
                 resetTimer();
             }
         });
