@@ -29,6 +29,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -153,24 +155,24 @@ public class SignInAct extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jobj = new JSONObject(response);
-                    // Toast.makeText(getApplicationContext(),"object is"+jobj,Toast.LENGTH_LONG).show();
-                    String status= jobj.getString("status");
-                    if (status.equals("1")){
-                        String message=jobj.getString("msg");
-                        String name= jobj.getString("name");
-                        String assessorid=jobj.getString("assessor_id");
-                        String address=jobj.getString("address");
-                        String tab_row = jobj.getString("user_type");
-                        Toast.makeText(getApplicationContext(),"Username is"+assessorid,Toast.LENGTH_LONG).show();
-                        sessionManager.setPreferences(getApplicationContext(), "status", "1");
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putString("Name", name);
-                        editor.putString("address", address);
-                        editor.putString("assessorid",assessorid);
-                        editor.apply();
-                        Intent ii=new Intent(SignInAct.this, Welcome_page.class);
-                        startActivity(ii);
+                    String status = jobj.getString("status");
+                    if (status.equals("1")) {
+                        JSONArray jsonArray = jobj.getJSONArray("student_details");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject c = jsonArray.getJSONObject(i);
+                            String name = c.getString("firstname");
+                            String address = c.getString("name");
+                            sessionManager.setPreferences(getApplicationContext(), "status", "1");
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString("Name", name);
+                            editor.putString("address", address);
+                           //editor.putString("assessorid",);
+                            editor.apply();
+                            Intent ii=new Intent(SignInAct.this, Welcome_page.class);
+                            startActivity(ii);
+                        }
                     }
+
                     else {
                         Toast.makeText(getApplicationContext(),"Unable to Login at the moment.Try Again Later.",Toast.LENGTH_LONG).show();
                     }

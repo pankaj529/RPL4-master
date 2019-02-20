@@ -11,22 +11,23 @@ import radiant.rpl.radiantrpl.R;
 public class Start_Registration extends AppCompatActivity {
 
     Button b1,b2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start__registration);
-
         b1=findViewById(R.id.buttonregister);
         b2=findViewById(R.id.login);
         b1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
                 Intent ii=new Intent(Start_Registration.this,MainActivity.class);
-               startActivity(ii);
-
+                startActivity(ii);
             }
         });
+
+
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,15 +35,7 @@ public class Start_Registration extends AppCompatActivity {
                 Intent ii=new Intent(Start_Registration.this,SignInAct.class);
                 startActivity(ii);
             }
-      });
-
-
-
-
-
-
-
-
+        });
 
     }
 }
