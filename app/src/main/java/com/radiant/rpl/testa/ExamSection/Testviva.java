@@ -2,54 +2,38 @@ package com.radiant.rpl.testa.ExamSection;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import radiant.rpl.radiantrpl.R;
-
 import android.app.ProgressDialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.radiant.rpl.testa.LocalDB.DbAutoSave;
-import com.radiant.rpl.testa.MainActivity;
 import com.radiant.rpl.testa.MyNetwork;
-import com.radiant.rpl.testa.SignInAct;
-import com.radiant.rpl.testa.Testinstruction;
-import com.radiant.rpl.testa.Welcome_page;
-
+import com.radiant.rpl.testa.Start_Registration;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -72,24 +56,12 @@ public class Testviva extends AppCompatActivity{
     String j;
     private NotificationHelper mNotificationHelper;
 
-    private static final long START_TIME_IN_MILLIS = 60000;
+    private static final long START_TIME_IN_MILLIS = 1500000;
     private static final long  START_TIME_IN_MILLISR=00000;
     private android.os.CountDownTimer CountDownTimer;
     private boolean TimerRunning;
     private long TimeLeftInMillis;
     private long EndTime;
-
-
-
-
-
-
-
-
-
-
-
-
     ArrayList<String> studentidlist;
     ArrayList<String> questioniddd;
     ArrayList<String> answeredoptionn;
@@ -193,6 +165,10 @@ public class Testviva extends AppCompatActivity{
                 }
             }
         });
+
+
+        mdrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
     }
 
 
@@ -245,7 +221,7 @@ public class Testviva extends AppCompatActivity{
                         .setPositiveButton("Yes ", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent ii = new Intent(Testviva.this, Welcome_page.class);
+                              Intent ii = new Intent(Testviva.this, Start_Registration.class);
                                 startActivity(ii);
 
                                 finish();
@@ -266,6 +242,32 @@ public class Testviva extends AppCompatActivity{
 
 
     }
+
+
+    public void showDialog1() {
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setMessage("Your time  is over for this section press yes to for submit.")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent ii = new Intent(Testviva.this, Start_Registration.class);
+                        startActivity(ii);
+
+                        finish();
+
+                    }
+                }).create();
+
+
+        alertDialog.show();
+
+    }
+
+
+
     private void startTimer() {
         EndTime = System.currentTimeMillis() + TimeLeftInMillis;
 
@@ -284,8 +286,7 @@ public class Testviva extends AppCompatActivity{
                 resetTimer();
 
 
-                AlertDialog alertDialog = new AlertDialog.Builder(textView.getContext())
-                        .setMessage("Your Time is over!!.").show();
+                showDialog1();
             }
         }.start();
 

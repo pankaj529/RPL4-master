@@ -144,7 +144,7 @@ public class SignInAct extends AppCompatActivity {
     private void sendDataServer() {
 
 
-        String serverURL = "https://www.skillassessment.org/ssc/android_connect/login.php";
+        String serverURL = "https://www.skillassessment.org/sdms/android_connect/login.php";
         uname=username.getText().toString();
         pass= passowrd.getText().toString();
 

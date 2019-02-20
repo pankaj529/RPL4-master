@@ -2,7 +2,6 @@ package com.radiant.rpl.testa.ExamSection;
 
 import android.app.ProgressDialog;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,43 +12,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.radiant.rpl.testa.LocalDB.DbAutoSave;
-import com.radiant.rpl.testa.MainActivity;
 import com.radiant.rpl.testa.MyNetwork;
-import com.radiant.rpl.testa.SignInAct;
-import com.radiant.rpl.testa.Testinstruction;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 
 
 import radiant.rpl.radiantrpl.R;
@@ -72,7 +59,7 @@ public class TestQuestion extends AppCompatActivity {
     AlertDialog alertDialog;
 
 
-    private static final long START_TIME_IN_MILLIS = 60000;
+    private static final long START_TIME_IN_MILLIS = 1500000;
     private static final long START_TIME_IN_MILLISR = 00000;
     private android.os.CountDownTimer CountDownTimer;
     private boolean TimerRunning;
@@ -178,7 +165,8 @@ public class TestQuestion extends AppCompatActivity {
                 }
             }
         });
-    }
+
+     }
 
 
     private void getIDs() {
@@ -225,13 +213,8 @@ public class TestQuestion extends AppCompatActivity {
         finalSubmitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 showDialog();
                 resetTimer();
-
-
-
             }
         });
 
@@ -257,10 +240,9 @@ public class TestQuestion extends AppCompatActivity {
                 TimerRunning = false;
                 updateButtons();
                 resetTimer();
+                showDialog1();
 
 
-                AlertDialog alertDialog = new AlertDialog.Builder(textView.getContext())
-                        .setMessage("Your Time is over!!.").show();
             }
         }.start();
 
@@ -486,6 +468,7 @@ public class TestQuestion extends AppCompatActivity {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setMessage("Click Yes to schedule Test for Next Section.")
+                   .setCancelable(false)
                 .setPositiveButton("Yes And proceed", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -501,6 +484,31 @@ public class TestQuestion extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+    public void showDialog1() {
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setMessage("Your time  is over for this section press yes to proceed next section.")
+                //.setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       // Intent ii = new Intent(TestQuestion.this, Testviva.class);
+                        //startActivity(ii);
+
+                        finish();
+
+                    }
+                }).create();
+
+
+        alertDialog.show();
+
+    }
+
+
+
 
 
 }
